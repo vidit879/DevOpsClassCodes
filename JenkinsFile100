@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+    
+    tools{
+        maven 'maven'
+    }
+
+    stages {
+        stage('clone the github repo') {
+            steps {
+                git 'https://github.com/NikitasGithub/DevOpsClassCodes.git'
+                echo 'cloned the repo successfully'
+            }
+        }
+        stage('compile the code') {
+            steps {
+                bat 'mvn compile'
+            }
+        }
+        stage('test the code') {
+            steps {
+                bat 'mvn test'
+            }
+        }
+        stage('QA the code') {
+            steps {
+                bat 'mvn pmd:pmd'
+            }
+        }
+         stage('Package the code') {
+            steps {
+                bat 'mvn package'
+            }
+        }
+       
+        }
+    }
+
