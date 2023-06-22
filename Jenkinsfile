@@ -1,23 +1,26 @@
-pipeline{
+pipeline {
     agent any
     tools{
-        maven 'my_maven'
+        maven 'maven-1'
     }
-    stages{
-        stage('Clone Repo'){
-            steps{
+    stages {
+        stage('Clone Repo') {
+            steps {
                 echo 'This is stage 1'
                 git 'https://github.com/NikitasGithub/DevOpsClassCodes.git'
             }
         }
-        stage('Compile'){
-            steps{
-                echo 'This is compile stage'
+        
+        stage('Compile Stage') {
+            steps {
+                echo 'This is stage 2'
                 sh 'mvn compile'
             }
         }
-         stage('Code Review'){
-            steps{
+        
+        stage('Code Review Stage') {
+            steps {
+                echo 'This is stage 3'
                 sh 'mvn pmd:pmd'
             }
             post{
@@ -25,20 +28,23 @@ pipeline{
                     recordIssues(tools: [pmdParser(pattern: '**/pmd.xml')])
                 }
             }
+            
         }
-          stage('Code Test'){
-            steps{
+        stage('Code Test Stage') {
+            steps {
+                echo 'This is stage 4'
                 sh 'mvn test'
             }
             post{
                 success{
-                    junit 'target/surefire-reports/*.xml'
+                   junit 'target/surefire-reports/*.xml'
                 }
             }
+            
         }
-        stage('package'){
-            steps{
-                echo 'This is package stage'
+         stage('Code Package Stage') {
+            steps {
+                echo 'This is stage 5'
                 sh 'mvn package'
             }
         }
