@@ -29,7 +29,7 @@ pipeline {
         stage('Docker Build') {
     	agent any
             steps {
-      	        sh 'docker build -t ngupta0107/address-book:latest .'
+      	        sh 'docker build -t ngupta0107/address-book11:latest .'
       }
     }
     }
