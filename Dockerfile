@@ -1,3 +1,2 @@
-FROM anapsix/alpine-java 
+FROM tomcat:8-jre8
 COPY /target/addressbook.war /home/addressbook.war
-CMD ["java","-war","/home/addressbook.war"]
