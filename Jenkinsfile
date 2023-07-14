@@ -19,37 +19,18 @@ pipeline {
             }
             
         }
-        stage('Code review Stage') {
-            steps {
-                echo 'This is stage 3'
-                sh 'mvn pmd:pmd'
-            }
-            post{
-                success{
-                    recordIssues(tools: [pmdParser(pattern: 'target/pmd.xml')])
-                }
-            }
-            
-        }
-        stage('Code testing Stage') {
-            steps {
-                echo 'This is stage 4'
-                sh 'mvn test'
-            }
-            post{
-                success{
-                    junit 'target/surefire-reports/*.xml'
-                }
-            }
-            
-        }
+        
         stage('Code package Stage') {
             steps {
                 echo 'This is stage 5'
                 sh 'mvn package'
             }
-            
-            
-        }
+            }
+        stage('Docker Build') {
+    	agent any
+            steps {
+      	        sh 'docker build -t ngupta0107/address-book:latest .'
+      }
+    }
     }
 }
