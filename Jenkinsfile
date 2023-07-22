@@ -32,5 +32,12 @@ pipeline {
       	        sh 'docker build -t ngupta0107/address-book11:latest .'
       }
     }
+
+     stage('Deploy') {
+            steps {
+                // Run the Docker container from the built image (replace 'your-container-name' and ports as needed)
+                sh 'docker run -d --name nikita-docker -p 8085:8080 address-book11:latest'
+            }
+        }
     }
 }
