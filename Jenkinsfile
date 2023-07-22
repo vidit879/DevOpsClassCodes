@@ -15,7 +15,7 @@ pipeline {
         stage('Compile Stage') {
             steps {
                 echo 'This is stage 2'
-                sh 'mvn compile'
+                bat 'mvn compile'
             }
             
         }
@@ -23,20 +23,20 @@ pipeline {
         stage('Code package Stage') {
             steps {
                 echo 'This is stage 5'
-                sh 'mvn package'
+                bat 'mvn package'
             }
             }
         stage('Docker Build') {
     	agent any
             steps {
-      	        sh 'docker build -t ngupta0107/address-book11:latest .'
+      	        bat 'docker build -t ngupta0107/address-book11:latest .'
       }
     }
 
      stage('Deploy') {
             steps {
                 // Run the Docker container from the built image (replace 'your-container-name' and ports as needed)
-                sh 'docker run -d --name nikita-docker -p 8085:8080 address-book11:latest'
+                bat 'docker run -d --name nikita-docker -p 8085:8080 address-book11:latest'
             }
         }
     }
